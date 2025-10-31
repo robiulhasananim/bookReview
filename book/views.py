@@ -21,3 +21,21 @@ def book_list(request):
 def book_detail (request, pk):
     book = Book.objects.get(pk=pk)
     return render(request, 'book/book_details.html', {'book':book})
+
+def book_update (request, pk):
+    book = Book.objects.get(pk=pk)
+    if request.method == "POST":
+        form = BookForm(request. POST, instance=book)
+        if form.is_valid():
+            form.save()
+            messages.success (request, 'Book updatedsuccessfully!')
+            return redirect('book-update', pk=book.pk)
+    else:
+        form = BookForm(instance=book)
+    return render (request, 'book/book_form.html', {'form': form})
+
+def book_delete (request, pk):
+    book = Book.objects.get(pk=pk)
+    book.delete()
+    messages.success (request, 'Book deleted successfully!')
+    return redirect('book-list')
