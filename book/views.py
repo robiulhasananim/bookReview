@@ -43,3 +43,6 @@ def book_delete (request, pk):
     book.delete()
     messages.success (request, 'Book deleted successfully!')
     return redirect('book-list')
+
+# add others features 
+
